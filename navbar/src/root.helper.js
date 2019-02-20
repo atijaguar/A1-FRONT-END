@@ -1,14 +1,10 @@
 export const links = [
   {
-    name: 'People2',
+    name: 'People',
     href: '/people'
   },
   {
-    name: 'Planets2',
+    name: 'Planets',
     href: '/planets'
-  },
-  {
-    name: 'Planets3',
-    href: '/planets3'
   }
 ]

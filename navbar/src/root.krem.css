@@ -1,11 +1,11 @@
 .root {
-  background-color: var(--white);
+  background-color: var(--primary);
   display: flex;
   align-items: center;
 }
 
 .primary-navigation-link {
-  color: var(--primary);
+  color: var(--white);
   text-decoration: none;
   margin-left: 16px;
   margin-right: 16px;
