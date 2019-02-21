@@ -6,14 +6,14 @@ export function prefix(location, ...prefixes) {
   )
 }
 
-export function navbar(location) {
+export function desktop(location) {
   return true
 }
 
-export function people(location) {
-  return prefix(location, 'people')
+export function grid(location) {
+  return prefix(location, 'grid')
 }
 
-export function planets(location) {
-  return prefix(location, 'planets')
+export function report(location) {
+  return prefix(location, 'report')
 }

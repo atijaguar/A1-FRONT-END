@@ -1,8 +1,8 @@
 import * as isActive from './activityFns.js'
 import * as singleSpa from 'single-spa'
 
-singleSpa.registerApplication('navbar', SystemJS.import('navbar!sofe'), isActive.navbar)
-singleSpa.registerApplication('people', SystemJS.import('people!sofe'), isActive.people)
-singleSpa.registerApplication('planets', SystemJS.import('planets!sofe'), isActive.planets)
+singleSpa.registerApplication('desktop', SystemJS.import('desktop!sofe'), isActive.desktop)
+singleSpa.registerApplication('grid', SystemJS.import('grid!sofe'), isActive.grid)
+singleSpa.registerApplication('report', SystemJS.import('report!sofe'), isActive.report)
 
 singleSpa.start()
