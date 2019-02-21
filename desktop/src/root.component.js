@@ -9,17 +9,21 @@ import * as serviceWorker from './serviceWorker';
 
 export default class Root extends React.Component {
 
-  state = {
-    hasError: false
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      hasError: false
+    }
   }
 
-  componentDidCatch (error, info) {
-    this.setState({hasError: true})
+  componentDidCatch(error, info) {
+    this.setState({ hasError: true })
   }
 
-  render () {
+  render() {
     return (
-      <p>PLANTILLA2</p>
+      '<p>PLANTILLA2</p>'
     )
   }
 }

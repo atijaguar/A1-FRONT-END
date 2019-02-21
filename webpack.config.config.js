@@ -21,13 +21,14 @@ module.exports = {
         loader: 'babel-loader',
       },
       {
-        test: /\.css$/,
+        test: /\.(css|scss|sass)$/,
         exclude: [path.resolve(__dirname, 'node_modules'), /\.krem.css$/],
         use: [
           'style-loader',
           {
             loader: 'css-loader',
             options: {
+              import: true,
               localIdentName: '[path][name]__[local]',
             },
           },

@@ -1,4 +1,4 @@
-/* eslint-env node */
+/* eslint-env node  */
 const webpack = require('webpack')
 const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
@@ -16,39 +16,41 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js?$/,
+        //https://github.com/babel/babel-loader
+        test: /\.m?js$/, 
         exclude: [path.resolve(__dirname, 'node_modules')],
-        loader: 'babel-loader',
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
+            plugins: ['@babel/plugin-proposal-object-rest-spread']
+          }
+        }
+        
       },
       {
-        test: /\.css$/,
+        test: /\.(css|scss|sass)$/,
         exclude: [path.resolve(__dirname, 'node_modules'), /\.krem.css$/],
-        use: [
-          'style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              modules: true,
-              localIdentName: '[path][name]__[local]',
-            },
-          },
-          {
-            loader: 'postcss-loader',
-            options: {
-              plugins() {
-                return [
-                  require('autoprefixer')
-                ];
-              },
-            },
-          },
-        ],
+        loader: 'css-loader',
+        options: {
+          import: true,
+          modules: true,
+          camelCase: true,
+          localIdentName: '[path][name]__[local]',
+        },
+        
       },
       {
-        test: /\.css$/,
+        test: /\.(css|scss|sass)$/,
         include: [path.resolve(__dirname, 'node_modules')],
         exclude: [/\.krem.css$/],
-        use: ['style-loader', 'css-loader'],
+        loader: 'css-loader',
+        options: {
+          import: true,
+          modules: true,
+          camelCase: true,
+          localIdentName: '[path][name]__[local]',
+        },
       },
       {
         test: /\.krem.css$/,
@@ -57,6 +59,7 @@ module.exports = {
           {
             loader: 'kremling-loader',
             options: {
+              import: true,
               namespace: 'app-dashboard-ui',
               postcss: {
                 plugins: {
