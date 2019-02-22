@@ -15,6 +15,7 @@ module.exports = {
   mode: 'production',
   module: {
     rules: [
+      { parser: { system: false } }, //is needed to avoid rewriting: when use SystemJS 
       {
         test: /\.js?$/,
         exclude: [path.resolve(__dirname, 'node_modules')],
@@ -64,7 +65,6 @@ module.exports = {
     }),
     new CopyPlugin([
       {from: path.resolve(__dirname, 'src/index.html')},
-      {from: path.resolve(__dirname, 'src/styles.css')},
     ]),
     new CleanWebpackPlugin(['build']),
   ],
