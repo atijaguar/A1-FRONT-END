@@ -21,14 +21,13 @@ module.exports = {
         loader: 'babel-loader',
       },
       {
-        test: /\.(css|scss|sass)$/,
+        test: /\.css$/,
         exclude: [path.resolve(__dirname, 'node_modules'), /\.krem.css$/],
         use: [
           'style-loader',
           {
             loader: 'css-loader',
             options: {
-              import: true,
               localIdentName: '[path][name]__[local]',
             },
           },
@@ -65,7 +64,7 @@ module.exports = {
     }),
     CopyWebpackPlugin([
       {from: path.resolve(__dirname, 'src/index.html')},
-     
+      {from: path.resolve(__dirname, 'src/styles.css')},
     ]),
     new CleanWebpackPlugin(['build']),
   ],
