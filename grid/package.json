@@ -1,7 +1,7 @@
 {
-  "name": "grid",
+  "name": "navigation",
   "version": "1.0.0",
-  "description": "Tabla construida dinámicamente a partir de una consulta",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -23,7 +23,7 @@
     "@babel/preset-react": "7.0.0",
     "autoprefixer": "9.1.5",
     "babel-core": "6.26.3",
-    "babel-loader": "8.0.4",
+    "babel-loader": "8.0.0",
     "clean-webpack-plugin": "0.1.19",
     "css-loader": "1.0.0",
     "kremling-loader": "0.1.1",
