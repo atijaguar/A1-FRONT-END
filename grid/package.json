@@ -1,36 +1,33 @@
 {
-  "name": "navigation",
+  "name": "grid",
   "version": "1.0.0",
-  "description": "",
+  "description": "GRID A1",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Atijaguar Cía. Ltda.",
   "license": "ISC",
-  "dependencies": {
-    "@reach/router": "1.2.1",
-    "kremling": "1.0.4",
-    "react-router": "4.3.1",
-    "single-spa-react": "2.8.1"
-  },
   "devDependencies": {
-    "@babel/core": "7.0.0",
-    "@babel/plugin-proposal-class-properties": "7.0.0",
-    "@babel/plugin-proposal-object-rest-spread": "7.0.0",
-    "@babel/plugin-syntax-dynamic-import": "7.0.0",
-    "@babel/preset-env": "7.0.0",
-    "@babel/preset-react": "7.0.0",
-    "autoprefixer": "9.1.5",
-    "babel-core": "6.26.3",
-    "babel-loader": "8.0.0",
-    "clean-webpack-plugin": "0.1.19",
-    "css-loader": "1.0.0",
-    "kremling-loader": "0.1.1",
-    "postcss-loader": "3.0.0",
-    "style-loader": "0.23.0",
-    "webpack": "4.17.1",
-    "webpack-cli": "3.1.0",
-    "webpack-dev-server": "^3.1.14"
+    "@babel/core": "^7.3.3",
+    "@babel/plugin-proposal-object-rest-spread": "^7.3.2",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/preset-env": "^7.3.1",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.5",
+    "clean-webpack-plugin": "^1.0.1",
+    "css-loader": "^2.1.0",
+    "html-loader": "^0.5.5",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.29.5",
+    "webpack-cli": "^3.2.3",
+    "webpack-dev-server": "^3.2.0"
+  },
+  "dependencies": {
+    "react": "^16.8.3",
+    "react-dom": "^16.8.3",
+    "react-router-dom": "^4.3.1",
+    "react-transition-group": "^2.5.3",
+    "single-spa-react": "^2.9.0"
   }
 }
