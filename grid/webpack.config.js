@@ -2,7 +2,7 @@
 const webpack = require('webpack')
 const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: path.resolve(__dirname, 'src/grid.js'),
@@ -81,7 +81,7 @@ module.exports = {
       raw: true,
     }),
     new CleanWebpackPlugin(['build/grid']),
-    CopyWebpackPlugin([
+    new CopyPlugin([
       {from: path.resolve(__dirname, 'src/grid.js')}
     ]),
   ],
