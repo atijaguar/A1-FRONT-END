@@ -25,7 +25,8 @@
     "webpack-dev-server": "^3.2.0"
   },
   "dependencies": {
-    "@babel/plugin-proposal-class-properties": "^7.3.3",
+    "@reach/router": "^1.2.1",
+    "kremling": "^1.2.1",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
     "react-router-dom": "^4.3.1",

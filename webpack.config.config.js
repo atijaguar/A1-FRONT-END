@@ -2,7 +2,7 @@
 const webpack = require('webpack')
 const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const CopyPlugin = require('copy-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: './src/config.js',
@@ -15,7 +15,6 @@ module.exports = {
   mode: 'production',
   module: {
     rules: [
-      { parser: { system: false } }, //is needed to avoid rewriting: when use SystemJS 
       {
         test: /\.js?$/,
         exclude: [path.resolve(__dirname, 'node_modules')],
@@ -63,7 +62,7 @@ module.exports = {
       banner: '"format amd";',
       raw: true,
     }),
-    new CopyPlugin([
+    new CopyWebpackPlugin([
       {from: path.resolve(__dirname, 'src/index.html')},
     ]),
     new CleanWebpackPlugin(['build']),
