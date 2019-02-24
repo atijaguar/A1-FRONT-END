@@ -1,4 +1,3 @@
-/* eslint-env node  */
 const webpack = require('webpack')
 const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
@@ -16,61 +15,38 @@ module.exports = {
   module: {
     rules: [
       {
-        //https://github.com/babel/babel-loader
-        test: /\.m?js$/, 
-        exclude: [path.resolve(__dirname, 'node_modules')],
+        test: /\.js$/,
         use: {
-          loader: 'babel-loader',
+          loader: "babel-loader",
           options: {
-            presets: ['@babel/preset-env'],
-            plugins: ['@babel/plugin-proposal-object-rest-spread']
+            presets: ['@babel/preset-env']
           }
         }
-        
       },
       {
-        test: /\.(css|scss|sass)$/,
-        exclude: [path.resolve(__dirname, 'node_modules'), /\.krem.css$/],
-        loader: 'css-loader',
-        options: {
-          import: true,
-          modules: true,
-          camelCase: true,
-          localIdentName: '[path][name]__[local]',
-        },
-        
-      },
-      {
-        test: /\.(css|scss|sass)$/,
-        include: [path.resolve(__dirname, 'node_modules')],
-        exclude: [/\.krem.css$/],
-        loader: 'css-loader',
-        options: {
-          import: true,
-          modules: true,
-          camelCase: true,
-          localIdentName: '[path][name]__[local]',
-        },
-      },
-      {
-        test: /\.krem.css$/,
-        exclude: [path.resolve(__dirname, 'node_modules')],
+        test: /\.(scss|css|sass)$/,
         use: [
           {
-            loader: 'kremling-loader',
-            options: {
-              import: true,
-              namespace: 'app-dashboard-ui',
-              postcss: {
-                plugins: {
-                  'autoprefixer': {}
-                }
-              }
-            },
+            loader: "style-loader" // creates style nodes from JS strings
           },
+          {
+            loader: "css-loader" // translates CSS into CommonJS
+          },
+          {
+            loader: "sass-loader" // compiles Sass to CSS
+          }
         ]
       },
-    ],
+      {
+        test: /\.(woff(2)?|ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'url-loader',
+        options: {
+          limit: 8192,
+          name:'[name].[ext]',
+          outputPath:'assets' //the icons will be stored in dist/assets folder
+        }
+      }
+    ]
   },
   resolve: {
     modules: [
@@ -84,7 +60,7 @@ module.exports = {
       raw: true,
     }),
     new CleanWebpackPlugin(['build/desktop']),
-   new CopyPlugin([
+    new CopyPlugin([
       {from: path.resolve(__dirname, 'src/desktop.js')}
     ]),
   ],
@@ -99,4 +75,3 @@ module.exports = {
     /^rxjs\/?.*$/,
   ],
 };
-
