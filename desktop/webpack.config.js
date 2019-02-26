@@ -1,6 +1,5 @@
 const webpack = require('webpack');
 const path = require('path');
-//const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -37,10 +36,10 @@ const prodPlugins = [
 	new HardSourceWebpackPlugin(),
 	extractCSS,
 	extractSCSS,
-	new HtmlWebpackPlugin({
+	/*new HtmlWebpackPlugin({
 		inject: true,
 		template: './public/index.html',
-	}),
+	}),*/
 	new CopyWebpackPlugin(
 		[
 			{ from: './public/img', to: 'img' },
@@ -61,10 +60,10 @@ const devPlugins = [
 	new HardSourceWebpackPlugin(),
 	extractCSS,
 	extractSCSS,
-	new HtmlWebpackPlugin({
+	/*new HtmlWebpackPlugin({
 		inject: true,
 		template: './public/index.html',
-	}),
+	}),*/
 	new CopyWebpackPlugin(
 		[
 			{ from: './public/assets/img', to: '/img' },
