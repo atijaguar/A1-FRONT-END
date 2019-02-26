@@ -5,12 +5,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const preCSS = require('precss');
 const autoPrefixer = require('autoprefixer');
 
-const isHot = true;//path.basename(require.main.filename) === 'webpack.config.js';
-
-console.log(isHot)
 
 const extractCSS = new MiniCssExtractPlugin({
 	filename: '[name].fonts.css',
@@ -24,74 +22,17 @@ const extractSCSS = new MiniCssExtractPlugin({
 const BUILD_DIR = path.resolve(__dirname, 'build');
 const SRC_DIR = path.resolve(__dirname, 'src');
 
-const prodPlugins = [
-	new webpack.DefinePlugin({ // <-- key to reducing React's size
-		'process.env': {
-			NODE_ENV: JSON.stringify('production'),
-		},
-	}),
-	new webpack.optimize.AggressiveMergingPlugin(), // Merge chunks
-	new webpack.HotModuleReplacementPlugin(),
-	new webpack.NamedModulesPlugin(),
-	new HardSourceWebpackPlugin(),
-	extractCSS,
-	extractSCSS,
-	/*new HtmlWebpackPlugin({
-		inject: true,
-		template: './public/index.html',
-	}),*/
-	new CopyWebpackPlugin(
-		[
-			{ from: './public/img', to: 'img' },
-		],
-		{ copyUnmodified: false },
-	),
-	new CompressionPlugin({
-		asset: '[path].gz[query]',
-		algorithm: 'gzip',
-		test: /\.js$|\.css$|\.html$/,
-		threshold: 10240,
-		minRatio: 0.8,
-	}),
-];
-const devPlugins = [
-	new webpack.HotModuleReplacementPlugin(),
-	new webpack.NamedModulesPlugin(),
-	new HardSourceWebpackPlugin(),
-	extractCSS,
-	extractSCSS,
-	/*new HtmlWebpackPlugin({
-		inject: true,
-		template: './public/index.html',
-	}),*/
-	new CopyWebpackPlugin(
-		[
-			{ from: './public/assets/img', to: '/img' },
-			{ from: './public/manifest.json', to: '/' },
-		],
-		{ copyUnmodified: false },
-	),
-	new CompressionPlugin({
-		asset: '[path].gz[query]',
-		algorithm: 'gzip',
-		test: /\.js$|\.css$|\.html$/,
-		threshold: 10240,
-		minRatio: 0.8,
-	}),
-];
-
-module.exports = (env = {}) => ({
-	mode: env.prod ? 'production' : 'development',
-	entry: {
-		index: ['babel-polyfill', `${SRC_DIR}/index.js`],
-		
-	},
+module.exports = {
+	mode: 'production',
+	entry: path.resolve(__dirname, 'src/desktop.js'),
 	output: {
-		path: BUILD_DIR,
-		filename: '[name].bundle.js'
+		filename: 'desktop.js',
+    library: 'desktop',
+    libraryTarget: 'amd',
+    path: path.resolve(__dirname, 'build'),
 	},
 	// watch: true,
-	devtool: env.prod ? 'source-map' : 'cheap-module-eval-source-map',
+	devtool: 'source-map',
 	devServer: {
 		contentBase: BUILD_DIR,
 		//   port: 9001,
@@ -117,27 +58,7 @@ module.exports = (env = {}) => ({
 				test: /\.html$/,
 				loader: 'html-loader',
 			},
-			/*{
-				test: /\.(scss)$/,
-				use: [{
-					loader: 'style-loader', // inject CSS to page
-				}, {
-					loader: 'css-loader',
-					options: { alias: { '../img': '../public/img' } },
-				}, {
-					loader: 'postcss-loader', // Run post css actions
-					options: {
-						plugins() { // post css plugins, can be exported to postcss.config.js
-							return [
-								preCSS,
-								autoPrefixer,
-							];
-						},
-					},
-				}, {
-					loader: 'sass-loader', // compiles Sass to CSS
-				}],
-			},*/
+			
 			{
 				test: /\.s?[ac]ss$/,
                 use: [
@@ -166,6 +87,52 @@ module.exports = (env = {}) => ({
 				},
 			}],
 	},
-	
-	plugins: env.prod ? prodPlugins : devPlugins,
-});
+	resolve: {
+		modules: [
+		  __dirname,
+		  'node_modules',
+		],
+	  },
+		plugins: [
+			new webpack.BannerPlugin({
+				banner: '"format amd";',
+				raw: true,
+			}),
+			new CopyWebpackPlugin([
+				{from: path.resolve(__dirname, 'src/desktop.js')},
+				{from: path.resolve(__dirname, 'public/manifest.json')}
+				]),
+			new webpack.DefinePlugin({ // <-- key to reducing React's size
+				'process.env': {
+					NODE_ENV: JSON.stringify('production'),
+				},
+			}),
+			new webpack.optimize.AggressiveMergingPlugin(), // Merge chunks
+			new HardSourceWebpackPlugin(),
+	    extractCSS,
+			extractSCSS,
+			new CopyWebpackPlugin(
+				[
+					{ from: './public/img', to: 'img' },
+				],
+				{ copyUnmodified: false },
+			),
+			new CompressionPlugin({
+				asset: '[path].gz[query]',
+				algorithm: 'gzip',
+				test: /\.js$|\.css$|\.html$/,
+				threshold: 10240,
+				minRatio: 0.8,
+			}),			
+		],
+	externals: [
+		/^.+!sofe$/,
+		/^lodash$/,
+		/^single-spa$/,
+		/^rxjs\/?.*$/,
+		/^react$/,
+		/^react\/lib.*/,
+		/^react-dom$/,
+		/.*react-dom.*/,
+	  ],
+};

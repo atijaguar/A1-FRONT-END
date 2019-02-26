@@ -1,4 +1,4 @@
-/* eslint-env node  */
+/* eslint-env node */
 const config = require('./webpack.config.js');
 const webpack = require('webpack');
 
@@ -11,5 +11,5 @@ config.devServer = {
 }
 
 config.mode = 'development'
-
+config.devtool = 'cheap-module-eval-source-map';
 module.exports = config;

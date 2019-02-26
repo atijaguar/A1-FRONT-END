@@ -23,7 +23,7 @@ export default class Root extends React.Component {
 
   render() {
     return (
-      '<p>PLANTILLA2</p>'
+      <p>PROGRAMAR vvvvvvvvvv</p>
     )
   }
 }
