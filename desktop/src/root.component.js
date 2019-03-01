@@ -23,7 +23,9 @@ export default class Root extends React.Component {
 
   render() {
     return (
-      <p>PROGRAMAR vvvvvvvvvv</p>
+      '<p>PLANTILLA2</p>'
     )
   }
 }
+
+

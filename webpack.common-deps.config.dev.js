@@ -1,4 +1,3 @@
-/* eslint-env node */
 const config = require('./webpack.common-deps.config.js');
 const webpack = require('webpack');
 

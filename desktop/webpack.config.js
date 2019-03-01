@@ -26,10 +26,11 @@ module.exports = {
 	mode: 'production',
 	entry: path.resolve(__dirname, 'src/desktop.js'),
 	output: {
+		path: BUILD_DIR,
 		filename: 'desktop.js',
-    library: 'desktop',
+		library: 'desktop',
     libraryTarget: 'amd',
-    path: path.resolve(__dirname, 'build'),
+    path: path.resolve(__dirname, 'build/desktop'),
 	},
 	// watch: true,
 	devtool: 'source-map',
@@ -102,37 +103,35 @@ module.exports = {
 				{from: path.resolve(__dirname, 'src/desktop.js')},
 				{from: path.resolve(__dirname, 'public/manifest.json')}
 				]),
-			new webpack.DefinePlugin({ // <-- key to reducing React's size
-				'process.env': {
-					NODE_ENV: JSON.stringify('production'),
-				},
-			}),
-			new webpack.optimize.AggressiveMergingPlugin(), // Merge chunks
-			new HardSourceWebpackPlugin(),
-	    extractCSS,
-			extractSCSS,
-			new CopyWebpackPlugin(
-				[
-					{ from: './public/img', to: 'img' },
-				],
-				{ copyUnmodified: false },
-			),
-			new CompressionPlugin({
-				asset: '[path].gz[query]',
-				algorithm: 'gzip',
-				test: /\.js$|\.css$|\.html$/,
-				threshold: 10240,
-				minRatio: 0.8,
-			}),			
+				new webpack.HotModuleReplacementPlugin(),
+				new webpack.NamedModulesPlugin(),
+				new HardSourceWebpackPlugin(),
+				extractCSS,
+				extractSCSS,
+			/*	new HtmlWebpackPlugin({
+					inject: true,
+					template: './public/desktop.html',
+				}),*/
+				new CopyWebpackPlugin(
+					[
+						{ from: './public/assets/img', to: '/img' },
+						{ from: './public/manifest.json', to: '/' },
+					],
+					{ copyUnmodified: false },
+				),
+				new CompressionPlugin({
+					asset: '[path].gz[query]',
+					algorithm: 'gzip',
+					test: /\.js$|\.css$|\.html$/,
+					threshold: 10240,
+					minRatio: 0.8,
+				}),		
 		],
-	externals: [
-		/^.+!sofe$/,
-		/^lodash$/,
-		/^single-spa$/,
-		/^rxjs\/?.*$/,
-		/^react$/,
-		/^react\/lib.*/,
-		/^react-dom$/,
-		/.*react-dom.*/,
-	  ],
+		externals: [
+			/^.+!sofe$/,
+			/^lodash$/,
+			/^single-spa$/,
+			/^rxjs\/?.*$/,
+		
+			],
 };
