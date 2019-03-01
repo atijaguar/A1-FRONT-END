@@ -6,7 +6,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const preCSS = require('precss');
+//const preCSS = require('precss');
 const autoPrefixer = require('autoprefixer');
 
 
@@ -23,7 +23,7 @@ const BUILD_DIR = path.resolve(__dirname, 'build');
 const SRC_DIR = path.resolve(__dirname, 'src');
 
 module.exports = {
-	mode: 'production',
+	mode: 'development',
 	entry: path.resolve(__dirname, 'src/desktop.js'),
 	output: {
 		path: BUILD_DIR,
@@ -88,12 +88,7 @@ module.exports = {
 				},
 			}],
 	},
-	resolve: {
-		modules: [
-		  __dirname,
-		  'node_modules',
-		],
-	  },
+	
 		plugins: [
 			new webpack.BannerPlugin({
 				banner: '"format amd";',
@@ -108,7 +103,7 @@ module.exports = {
 				new HardSourceWebpackPlugin(),
 				extractCSS,
 				extractSCSS,
-			/*	new HtmlWebpackPlugin({
+				/*new HtmlWebpackPlugin({
 					inject: true,
 					template: './public/desktop.html',
 				}),*/
@@ -128,10 +123,12 @@ module.exports = {
 				}),		
 		],
 		externals: [
-			/^.+!sofe$/,
 			/^lodash$/,
 			/^single-spa$/,
+			/^react$/,
+			/^react\/lib.*/,
+			/^react-dom$/,
+			/.*react-dom.*/,
 			/^rxjs\/?.*$/,
-		
-			],
+		],
 };

@@ -28,6 +28,7 @@ export const unload = [
 
 function domElementGetter() {
   let el = document.getElementById("desktop");
+ 
   if (!el) {
     el = document.createElement('div');
     el.id = 'desktop';
