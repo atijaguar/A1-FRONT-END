@@ -19,5 +19,5 @@ config.devServer = {
 }
 
 config.mode = 'development'
-
+config.devtool='eval-source-map';
 module.exports = config;

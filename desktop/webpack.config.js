@@ -26,11 +26,9 @@ module.exports = {
 	mode: 'development',
 	entry: path.resolve(__dirname, 'src/desktop.js'),
 	output: {
-		path: BUILD_DIR,
-		filename: 'desktop.js',
-		library: 'desktop',
-    libraryTarget: 'amd',
-    path: path.resolve(__dirname, 'build/desktop'),
+		path: path.resolve(__dirname, 'dist'),
+		filename: 'desktop.bundle.js',
+		path: path.resolve(__dirname, 'build/desktop'),
 	},
 	// watch: true,
 	devtool: 'source-map',
@@ -47,11 +45,11 @@ module.exports = {
 				test: /\.(js|jsx)$/,
 				exclude: /node_modules/,
 				use: {
-					loader: 'babel-loader',	
+					loader: 'babel-loader',
 					options: {
 						cacheDirectory: true,
 						presets: ['@babel/preset-react', '@babel/preset-env',],
-						plugins: ['@babel/plugin-syntax-dynamic-import',"@babel/plugin-proposal-class-properties"],
+						plugins: ['@babel/plugin-syntax-dynamic-import', "@babel/plugin-proposal-class-properties"],
 					},
 				},
 			},
@@ -59,14 +57,14 @@ module.exports = {
 				test: /\.html$/,
 				loader: 'html-loader',
 			},
-			
+
 			{
 				test: /\.s?[ac]ss$/,
-                use: [
-                    MiniCssExtractPlugin.loader,
-                    { loader: 'css-loader', options: { url: false, sourceMap: true } },
-                    { loader: 'sass-loader', options: { sourceMap: true } }
-                ],
+				use: [
+					MiniCssExtractPlugin.loader,
+					{ loader: 'css-loader', options: { url: false, sourceMap: true } },
+					{ loader: 'sass-loader', options: { sourceMap: true } }
+				],
 			},
 			{
 				test: /\.(png|jpg|jpeg|gif|ico)$/,
@@ -88,47 +86,46 @@ module.exports = {
 				},
 			}],
 	},
-	
-		plugins: [
-			new webpack.BannerPlugin({
-				banner: '"format amd";',
-				raw: true,
-			}),
-			new CopyWebpackPlugin([
-				{from: path.resolve(__dirname, 'src/desktop.js')},
-				{from: path.resolve(__dirname, 'public/manifest.json')}
-				]),
-				new webpack.HotModuleReplacementPlugin(),
-				new webpack.NamedModulesPlugin(),
-				new HardSourceWebpackPlugin(),
-				extractCSS,
-				extractSCSS,
-				/*new HtmlWebpackPlugin({
-					inject: true,
-					template: './public/desktop.html',
-				}),*/
-				new CopyWebpackPlugin(
-					[
-						{ from: './public/assets/img', to: '/img' },
-						{ from: './public/manifest.json', to: '/' },
-					],
-					{ copyUnmodified: false },
-				),
-				new CompressionPlugin({
-					asset: '[path].gz[query]',
-					algorithm: 'gzip',
-					test: /\.js$|\.css$|\.html$/,
-					threshold: 10240,
-					minRatio: 0.8,
-				}),		
-		],
-		externals: [
-			/^lodash$/,
-			/^single-spa$/,
-			/^react$/,
-			/^react\/lib.*/,
-			/^react-dom$/,
-			/.*react-dom.*/,
-			/^rxjs\/?.*$/,
-		],
+
+	plugins: [
+		new webpack.BannerPlugin({
+			banner: '"format amd";',
+			raw: true,
+		}),
+		new CleanWebpackPlugin(['build/desktop']),
+		new CopyWebpackPlugin([
+			{ from: path.resolve(__dirname, 'src/desktop.js') },
+			{ from: path.resolve(__dirname, 'public/manifest.json') },
+			{ from: './public/assets/img', to: '/img' },
+			{ from: './public/manifest.json', to: '/' },
+		]),
+		new webpack.HotModuleReplacementPlugin(),
+		new webpack.NamedModulesPlugin(),
+		new HardSourceWebpackPlugin(),
+		extractCSS,
+		extractSCSS,
+		/*new HtmlWebpackPlugin({
+			inject: true,
+			template: './public/desktop.html',
+		}),*/
+
+		new CompressionPlugin({
+			asset: '[path].gz[query]',
+			algorithm: 'gzip',
+			test: /\.js$|\.css$|\.html$/,
+			threshold: 10240,
+			minRatio: 0.8,
+		}),
+	],
+	externals: [
+		/^.+!sofe$/,
+		/^lodash$/,
+		/^single-spa$/,
+		/^rxjs\/?.*$/,
+		/^React$/,
+		/^react\/lib.*/,
+		/^react-dom$/,
+		/.*react-dom.*/,
+	],
+
 };

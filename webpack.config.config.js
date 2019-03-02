@@ -62,7 +62,7 @@ module.exports = {
       raw: true,
     }),
     new CopyWebpackPlugin([
-      {from: path.resolve(__dirname, 'src/index.html')},
+      { from: path.resolve(__dirname, 'src/index.html') },
     ]),
     new CleanWebpackPlugin(['build']),
   ],

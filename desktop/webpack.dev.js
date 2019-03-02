@@ -11,5 +11,5 @@ config.devServer = {
 }
 
 config.mode = 'development'
-config.devtool = 'cheap-module-eval-source-map';
+config.devtool='eval-source-map';
 module.exports = config;
